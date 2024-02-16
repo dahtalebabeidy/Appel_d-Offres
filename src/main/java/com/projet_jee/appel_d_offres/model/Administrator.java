@@ -1,13 +1,8 @@
 package com.projet_jee.appel_d_offres.model;
 
 public class Administrator {
-    private String username;
-    private String password;
-
-    public Administrator() {
-        this.username = "admin";
-        this.password = "admin";
-    }
+	public static String username = "admin";
+	public static String password = "admin";
 
     public String getUsername() {
         return username;

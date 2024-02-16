@@ -1,18 +1,18 @@
 package com.projet_jee.appel_d_offres.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import com.projet_jee.appel_d_offres.model.Administrator;
-
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-public class AuthenticationServlet extends HttpServlet {
+import com.projet_jee.appel_d_offres.model.Administrator;
+
+public class PasswordModificationServlet extends HttpServlet {
     private Administrator administrator;  // Assuming Administrator class is in the same package
 
     public void init() {
@@ -27,13 +27,14 @@ public class AuthenticationServlet extends HttpServlet {
         // Create PrintWriter to write HTML response
         PrintWriter out = response.getWriter();
 
-        // HTML response for login page
+        // HTML response for password modification form
         out.println("<html lang='en'>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        out.println("<title>Log in d'administrateur</title>");
+        out.println("<title>Changement du mot de passe</title>");
         out.println("<style>");
+        // Include any additional styles if needed
         out.println("body {");
         out.println("    font-family: Arial, sans-serif;");
         out.println("    background-color: #f4f4f4;");
@@ -55,7 +56,7 @@ public class AuthenticationServlet extends HttpServlet {
         out.println("    margin: 10px;");
         out.println("}");
         out.println("");
-        out.println("form input, form button {");
+        out.println("form input {");
         out.println("    border: 1px solid #ddd;");
         out.println("    border-radius: 5px;");
         out.println("    padding: 10px;");
@@ -71,31 +72,17 @@ public class AuthenticationServlet extends HttpServlet {
         out.println("    color: #9d9d9d;");
         out.println("}");
         out.println("");
-        out.println("form input[type='submit'], form button {");
+        out.println("form input[type='submit'] {");
         out.println("    border: 1px solid #ddd;");
         out.println("    padding: 10px 25px;");
         out.println("    font-size: 1.1rem;");
         out.println("    margin: 10px 0;");
         out.println("    border-radius: 5px;");
-        out.println("    cursor: pointer;");
         out.println("}");
         out.println("");
-        out.println("form input[type='submit']:hover, form button:hover {");
+        out.println("form input[type='submit']:hover {");
         out.println("    background-color: #00000f;");
         out.println("    color: white;");
-        out.println("}");
-        out.println("");
-        out.println("form button:hover a {");
-        out.println("    color: white;");
-        out.println("}");
-        out.println("");
-        out.println("form button {");
-        out.println("    margin: 0px;");
-        out.println("}");
-        out.println("");
-        out.println("form a {");
-        out.println("    text-decoration: none;");
-        out.println("    color: buttontext;");
         out.println("}");
         out.println("");
         out.println(".error-message {");
@@ -104,39 +91,53 @@ public class AuthenticationServlet extends HttpServlet {
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<form action='" + request.getContextPath() + "/AuthenticationServlet' method='post'>");
-        out.println("<h2>Log in</h2>");
+
+        // Password modification form
+        out.println("<form action='" + request.getContextPath() + "/PasswordModificationServlet' method='post'>");
+        out.println("<h2>Changer Votre mot de passe</h2>");
         out.println("<div>");
-        out.println("<label for='username'>nom:</label>");
-        out.println("<input type='text' id='username' name='username' required>");
+        out.println("<label for=\"oldPassword\">Ancien mot de passe:</label>");
+        out.println("<input type=\"password\" id=\"oldPassword\" name=\"oldPassword\" required>");
         out.println("</div>");
-        out.println("");
         out.println("<div>");
-        out.println("<label for='password'>mot de passe:</label>");
-        out.println("<input type='password' id='password' name='password' required>");
+        out.println("<label for='newPassword'>Nouveau mot de passe:</label>");
+        out.println("<input type='password' id='newPassword' name='newPassword' required>");
         out.println("</div>");
-        out.println("");
         out.println("<div>");
-        out.println("<input type='submit' value='Se Connecter'>");
+        out.println("<input type='submit' value='Enregistrer'>");
         out.println("</div>");
         out.println("</form>");
+
         out.println("</body>");
         out.println("</html>");
     }
 
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Retrieve user input from the form
-        String enteredUsername = request.getParameter("username");
-        String enteredPassword = request.getParameter("password");
+        // Handle password modification form submission
+    	String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
 
-        // Check if entered credentials match the administrator's credentials
-        if (enteredUsername.equals(administrator.getUsername()) && enteredPassword.equals(administrator.getPassword())) {
-            // Authentication successful
-            response.getWriter().println("<html><head><meta charset='UTF-8'></head><body><h2>Authentification réussie avec succès!</h2></body></html>");
+        if (administrator.getPassword().equals(oldPassword)) {
+            // Update the administrator's password
+            administrator.setPassword(newPassword);
+
+            // Send a response confirming the password modification
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<html><head><meta charset='UTF-8'></head><body>");
+            out.println("<h2>Modification de mot de passe</h2>");
+            out.println("<p>Mot de passe modifié avec succès !</p>");
+            out.println("</body></html>");
         } else {
-            // Authentication failed
-            response.getWriter().println("<html><head><meta charset='UTF-8'></head><body><h2>Authentification échouée. Essayer à nouveau.</h2></body></html>");
+            // Send a response indicating that the old password is incorrect
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<html><head><meta charset='UTF-8'></head><body>");
+            out.println("<h2>Modification de mot de passe</h2>");
+            out.println("<p>Ancien mot de passe incorrect. Veuillez réessayer.</p>");
+            out.println("</body></html>");
+            
+            response.setHeader("Refresh", "1; URL=" + request.getContextPath() + "/PasswordModificationServlet");
         }
     }
 }

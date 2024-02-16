@@ -25,5 +25,14 @@
     <servlet-name>AuthenticationServlet</servlet-name>
     <url-pattern>/AuthenticationServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PasswordModificationServlet</display-name>
+    <servlet-name>PasswordModificationServlet</servlet-name>
+    <servlet-class>com.projet_jee.appel_d_offres.servlet.PasswordModificationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PasswordModificationServlet</servlet-name>
+    <url-pattern>/PasswordModificationServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
-
