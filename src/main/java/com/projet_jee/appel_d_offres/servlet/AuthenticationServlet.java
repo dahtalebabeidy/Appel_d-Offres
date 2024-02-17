@@ -21,13 +21,10 @@ public class AuthenticationServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Set the content type to HTML
         response.setContentType("text/html");
 
-        // Create PrintWriter to write HTML response
         PrintWriter out = response.getWriter();
 
-        // HTML response for login page
         out.println("<html lang='en'>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");

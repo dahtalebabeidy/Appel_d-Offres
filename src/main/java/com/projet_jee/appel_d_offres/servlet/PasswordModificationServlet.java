@@ -13,28 +13,23 @@ import java.io.PrintWriter;
 import com.projet_jee.appel_d_offres.model.Administrator;
 
 public class PasswordModificationServlet extends HttpServlet {
-    private Administrator administrator;  // Assuming Administrator class is in the same package
+    private Administrator administrator;
 
     public void init() {
-        // Initialize the administrator with default credentials
         administrator = new Administrator();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Set the content type to HTML
         response.setContentType("text/html");
 
-        // Create PrintWriter to write HTML response
         PrintWriter out = response.getWriter();
 
-        // HTML response for password modification form
         out.println("<html lang='en'>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
         out.println("<title>Changement du mot de passe</title>");
         out.println("<style>");
-        // Include any additional styles if needed
         out.println("body {");
         out.println("    font-family: Arial, sans-serif;");
         out.println("    background-color: #f4f4f4;");
@@ -91,8 +86,6 @@ public class PasswordModificationServlet extends HttpServlet {
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
-
-        // Password modification form
         out.println("<form action='" + request.getContextPath() + "/PasswordModificationServlet' method='post'>");
         out.println("<h2>Changer Votre mot de passe</h2>");
         out.println("<div>");
@@ -107,35 +100,94 @@ public class PasswordModificationServlet extends HttpServlet {
         out.println("<input type='submit' value='Enregistrer'>");
         out.println("</div>");
         out.println("</form>");
-
         out.println("</body>");
         out.println("</html>");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Handle password modification form submission
     	String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
 
         if (administrator.getPassword().equals(oldPassword)) {
-            // Update the administrator's password
             administrator.setPassword(newPassword);
 
-            // Send a response confirming the password modification
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
-            out.println("<html><head><meta charset='UTF-8'></head><body>");
-            out.println("<h2>Modification de mot de passe</h2>");
-            out.println("<p>Mot de passe modifié avec succès !</p>");
-            out.println("</body></html>");
+            out.println("<html lang='en'>");
+            out.println("<head>");
+            out.println("<meta charset='UTF-8'>");
+            out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+            out.println("<title>Erreur</title>");
+            out.println("<style>");
+            out.println("body {");
+            out.println("    font-family: Arial, sans-serif;");
+            out.println("    background-color: #f4f4f4;");
+            out.println("    text-align: center;");
+            out.println("    margin: 20vh 0;");
+            out.println("}");
+            out.println("");
+            out.println(".container {");
+            out.println("    background: white;");
+            out.println("    border: 1px solid #dddddd;");
+            out.println("    padding: 25px;");
+            out.println("    border-radius: 10px;");
+            out.println("    box-shadow: 0 0 10px #00000f;");
+            out.println("    margin: 20px auto;");
+            out.println("    width: 30%;");
+            out.println("}");
+            out.println("");
+            out.println("h2, p {");
+            out.println("    color: #198d19; /* Red color for the error message */");
+            out.println("}");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<div class='container'>");
+            out.println("<h2>Succès</h2>");
+            out.println("<p>Mot de passe modifié avec succès</p>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+            
+            response.setHeader("Refresh", "1; URL=" + request.getContextPath() + "/AuthenticationServlet");
         } else {
-            // Send a response indicating that the old password is incorrect
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
-            out.println("<html><head><meta charset='UTF-8'></head><body>");
-            out.println("<h2>Modification de mot de passe</h2>");
-            out.println("<p>Ancien mot de passe incorrect. Veuillez réessayer.</p>");
-            out.println("</body></html>");
+            out.println("<html lang='en'>");
+            out.println("<head>");
+            out.println("<meta charset='UTF-8'>");
+            out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+            out.println("<title>Erreur</title>");
+            out.println("<style>");
+            out.println("body {");
+            out.println("    font-family: Arial, sans-serif;");
+            out.println("    background-color: #f4f4f4;");
+            out.println("    text-align: center;");
+            out.println("    margin: 20vh 0;");
+            out.println("}");
+            out.println("");
+            out.println(".error-container {");
+            out.println("    background: white;");
+            out.println("    border: 1px solid #dddddd;");
+            out.println("    padding: 25px;");
+            out.println("    border-radius: 10px;");
+            out.println("    box-shadow: 0 0 10px #00000f;");
+            out.println("    margin: 20px auto;");
+            out.println("    width: 30%;");
+            out.println("}");
+            out.println("");
+            out.println("h2, p {");
+            out.println("    color: #ff0000; /* Red color for the error message */");
+            out.println("}");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<div class='error-container'>");
+            out.println("<h2>Erreur</h2>");
+            out.println("<p>Votre Ancien mot de passe est incorrect essayer a nouveau</p>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
             
             response.setHeader("Refresh", "1; URL=" + request.getContextPath() + "/PasswordModificationServlet");
         }
