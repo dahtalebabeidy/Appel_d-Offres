@@ -35,4 +35,34 @@
     <servlet-name>PasswordModificationServlet</servlet-name>
     <url-pattern>/PasswordModificationServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddUserFormServlet</display-name>
+    <servlet-name>AddUserFormServlet</servlet-name>
+    <servlet-class>com.projet_jee.appel_d_offres.servlet.AddUserFormServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddUserFormServlet</servlet-name>
+    <url-pattern>/AddUserFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserLoginFormServlet</display-name>
+    <servlet-name>UserLoginFormServlet</servlet-name>
+    <servlet-class>com.projet_jee.appel_d_offres.servlet.UserLoginFormServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserLoginFormServlet</servlet-name>
+    <url-pattern>/UserLoginFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserSignUpFormServlet</display-name>
+    <servlet-name>UserSignUpFormServlet</servlet-name>
+    <servlet-class>com.projet_jee.appel_d_offres.servlet.UserSignUpFormServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserSignUpFormServlet</servlet-name>
+    <url-pattern>/UserSignUpFormServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
