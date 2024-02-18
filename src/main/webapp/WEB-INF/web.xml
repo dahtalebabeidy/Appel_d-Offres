@@ -65,4 +65,24 @@
     <servlet-name>UserSignUpFormServlet</servlet-name>
     <url-pattern>/UserSignUpFormServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminServlet</display-name>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.projet_jee.appel_d_offres.servlet.AdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/AdminServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserServlet</display-name>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.projet_jee.appel_d_offres.servlet.UserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/UserServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

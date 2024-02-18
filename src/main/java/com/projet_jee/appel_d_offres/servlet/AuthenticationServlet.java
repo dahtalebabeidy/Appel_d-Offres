@@ -29,7 +29,7 @@ public class AuthenticationServlet extends HttpServlet {
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        out.println("<title>Log in d'administrateur</title>");
+        out.println("<title>Connexion d'administrateur</title>");
         out.println("<style>");
         out.println("body {");
         out.println("    font-family: Arial, sans-serif;");
@@ -101,8 +101,8 @@ public class AuthenticationServlet extends HttpServlet {
         out.println("</style>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<form action='" + request.getContextPath() + "/AuthenticationServlet' method='post'>");
-        out.println("<h2>Log in</h2>");
+        out.println("<form action='" + request.getContextPath() + "/webapi/administrator/login' method='post'>");
+        out.println("<h2>Connexion d'administrateur</h2>");
         out.println("<div>");
         out.println("<label for='username'>nom:</label>");
         out.println("<input type='text' id='username' name='username' required>");
@@ -121,19 +121,4 @@ public class AuthenticationServlet extends HttpServlet {
         out.println("</html>");
     }
 
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Retrieve user input from the form
-        String enteredUsername = request.getParameter("username");
-        String enteredPassword = request.getParameter("password");
-
-        // Check if entered credentials match the administrator's credentials
-        if (enteredUsername.equals(administrator.getUsername()) && enteredPassword.equals(administrator.getPassword())) {
-            // Authentication successful
-            response.getWriter().println("<html><head><meta charset='UTF-8'></head><body><h2>Authentification réussie avec succès!</h2></body></html>");
-        } else {
-            // Authentication failed
-            response.getWriter().println("<html><head><meta charset='UTF-8'></head><body><h2>Authentification échouée. Essayer à nouveau.</h2></body></html>");
-        }
-    }
 }

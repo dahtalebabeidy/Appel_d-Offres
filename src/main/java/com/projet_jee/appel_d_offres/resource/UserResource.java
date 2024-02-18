@@ -33,7 +33,7 @@ public class UserResource {
         // Check if the user exists and the password is correct
     	if (isValidUser(username, password)) {
             // Redirect to userservlet after successful login
-            servletResponse.sendRedirect("/appel-d-offres/userservlet");
+            servletResponse.sendRedirect("/appel-d-offres/UserServlet");
             return ""; // Return an empty string for successful redirect
         } else {
             // Return HTML response for incorrect login
@@ -129,41 +129,41 @@ public class UserResource {
 			       + "</html>";
         } else {
         	return "<html lang='en'>"
-		       + "<head>"
-		       + "<meta charset='UTF-8'>"
-		       + "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
-		       + "<title>Erreur</title>"
-		       + "<style>"
-		       + "body {"
-		       + "    font-family: Arial, sans-serif;"
-		       + "    background-color: #f4f4f4;"
-		       + "    text-align: center;"
-		       + "    margin: 20vh 0;"
-		       + "}"
-		       + ""
-		       + ".container {"
-		       + "    background: white;"
-		       + "    border: 1px solid #dddddd;"
-		       + "    padding: 25px;"
-		       + "    border-radius: 10px;"
-		       + "    box-shadow: 0 0 10px #00000f;"
-		       + "    margin: 20px auto;"
-		       + "    width: 30%;"
-		       + "}"
-		       + ""
-		       + "h2, p {"
-		       + "    color: #ff0000; /* Red color for the error message */"
-		       + "}"
-		       + "</style>"
-		       + "</head>"
-		       + "<body>"
-		       + "<div class='container'>"
-		       + "<h2>Erreur d'inscription</h2>"
-		       + "<p>Le nom d'utilisateur est déjà pris. Veuillez choisir un autre nom d'utilisateur!</p>"
-		       + "</div>"
-		       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/UserSignUpFormServlet'; }, 1000);</script>"
-		       + "</body>"
-		       + "</html>";
+			       + "<head>"
+			       + "<meta charset='UTF-8'>"
+			       + "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+			       + "<title>Erreur</title>"
+			       + "<style>"
+			       + "body {"
+			       + "    font-family: Arial, sans-serif;"
+			       + "    background-color: #f4f4f4;"
+			       + "    text-align: center;"
+			       + "    margin: 20vh 0;"
+			       + "}"
+			       + ""
+			       + ".container {"
+			       + "    background: white;"
+			       + "    border: 1px solid #dddddd;"
+			       + "    padding: 25px;"
+			       + "    border-radius: 10px;"
+			       + "    box-shadow: 0 0 10px #00000f;"
+			       + "    margin: 20px auto;"
+			       + "    width: 30%;"
+			       + "}"
+			       + ""
+			       + "h2, p {"
+			       + "    color: #ff0000; /* Red color for the error message */"
+			       + "}"
+			       + "</style>"
+			       + "</head>"
+			       + "<body>"
+			       + "<div class='container'>"
+			       + "<h2>Erreur d'inscription</h2>"
+			       + "<p>Le nom d'utilisateur est déjà pris. Veuillez choisir un autre nom d'utilisateur!</p>"
+			       + "</div>"
+			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/UserSignUpFormServlet'; }, 1000);</script>"
+			       + "</body>"
+			       + "</html>";
         }
     }
 
