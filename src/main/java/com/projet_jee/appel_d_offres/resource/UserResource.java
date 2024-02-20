@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.projet_jee.appel_d_offres.model.Submission;
 import com.projet_jee.appel_d_offres.model.User;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,10 +16,17 @@ import jakarta.ws.rs.core.Response;
 @Path("/users")
 public class UserResource {
 	private static List<User> userList = new ArrayList<>();
+	public static String u = "";
 
     static {
         // Assume there's a predefined user for demonstration purposes
         userList.add(new User("user1", "password123"));
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public static List<User> getAllUsers() {
+        return userList;
     }
 
     @POST
@@ -33,6 +41,7 @@ public class UserResource {
         // Check if the user exists and the password is correct
     	if (isValidUser(username, password)) {
             // Redirect to userservlet after successful login
+    		u = username;
             servletResponse.sendRedirect("/appel-d-offres/UserServlet");
             return ""; // Return an empty string for successful redirect
         } else {
@@ -227,4 +236,5 @@ public class UserResource {
         }
         return false;
     }
+    
 }
