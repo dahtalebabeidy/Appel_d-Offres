@@ -15,23 +15,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class AdminServlet
- */
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     public AdminServlet() {
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 
-        // Create PrintWriter to write HTML response
         PrintWriter out = response.getWriter();
 
-        // Write the HTML content dynamically
         out.println("<html lang='en'>");
         out.println("<head>");
         out.println("<style>");
@@ -95,10 +89,13 @@ public class AdminServlet extends HttpServlet {
             out.println("                <p><strong>Date limite:</strong> " + ao.getDeadline() + "</p>");
             out.println("                <p><strong>Projet:</strong> " + ao.getProject() + "</p>");
             out.println("                <p><strong>Client:</strong> " + ao.getClient() + "</p>");
-            out.println("    			<button class='dashboard-button'><a href='ExtendAOForm'>Prolonger La date de cet AO</a></button>");
-            out.println("				<form action='" + request.getContextPath() + "/AdminServlet' method='post' style='display: inline;'>");
-            out.println("				<input type='hidden' name='aoName' value='" + ao.getName() + "'>");
-            out.println("				<input type='submit' value='Supprimer'>");
+            out.println("        <div class='button-container'>");
+            out.println("            <button class='dashboard-button'><a href='ExtendAOForm'>Prolonger La date de cet AO</a></button>");
+            out.println("            <form action='" + request.getContextPath() + "/AdminServlet' method='post' style='display: inline;'>");
+            out.println("                <input type='hidden' name='aoName' value='" + ao.getName() + "'>");
+            out.println("                <input type='submit' value='Supprimer'>");
+            out.println("            </form>");
+            out.println("        </div>");
             out.println("            </div>");
         }
 
@@ -134,7 +131,6 @@ public class AdminServlet extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve the submitted form parameter for AO name to delete
         String aoNameToDelete = request.getParameter("aoName");
 
         AOResource ar = new AOResource();

@@ -39,8 +39,8 @@ public class AOResource {
     	
     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate deadlineDate = LocalDate.parse(deadline, formatter);
-
-        if (deadlineDate.isBefore(LocalDate.now())) {
+        
+        if (getAOByName2(name) || deadlineDate.isBefore(LocalDate.now())) {
         	return "<html lang='en'>"
  			       + "<head>"
  			       + "<meta charset='UTF-8'>"
@@ -72,9 +72,9 @@ public class AOResource {
  			       + "<body>"
  			       + "<div class='container'>"
  			       + "<h2>Erreur</h2>"
- 			       + "<p>La date limite est inccorect!</p>"
+ 			       + "<p>Ajouter un nouveau AO avec une date limite correct!</p>"
  			       + "</div>"
- 			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/AddAOFormServlet'; }, 1000);</script>"
+ 			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/AddAOFormServlet'; }, 1500);</script>"
  			       + "</body>"
  			       + "</html>";
         }
@@ -104,9 +104,8 @@ public class AOResource {
 
         if (aoToDelete != null) {
             aoList.remove(aoToDelete);
-            // Redirect to AdminServlet using sendRedirect
             servletResponse.sendRedirect("/appel-d-offres/AdminServlet");
-            return Response.ok().build();  // You can return any appropriate response here
+            return Response.ok().build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("AO not found").build();
         }
@@ -116,24 +115,19 @@ public class AOResource {
     @Path("/extend")
     @Produces(MediaType.TEXT_HTML)
     public Response extendDeadline(@FormParam("aoName") String aoName, @FormParam("newDeadline") String newDeadline) {
-        // Retrieve the AO object based on the AO name
         AO aoToExtend = getAOByName(aoName);
 
         if (aoToExtend != null && isValidDeadlineExtension(aoToExtend.getDeadline(), newDeadline)) {
-            // Perform the deadline extension (you'll need to implement this logic)
-            // For example, assign the new deadline to the AO
+            
             aoToExtend.setDeadline(newDeadline);
 
-            // Update the AO object in your data source (e.g., list)
             updateAO(aoToExtend);
 
-            // Redirect to AdminServlet
             return Response.status(Response.Status.SEE_OTHER)
                     .header("Location", "/appel-d-offres/AdminServlet")
                     .entity("")
                     .build();
         } else {
-            // AO doesn't exist, display a message
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(
                 			   "<html lang='en'>"
@@ -169,7 +163,7 @@ public class AOResource {
               			       + "<h2>Erreur</h2>"
               			       + "<p>Le nom d'AO ou la date est inccorect!</p>"
               			       + "</div>"
-              			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/ExtendAOForm'; }, 1000);</script>"
+              			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/ExtendAOForm'; }, 1500);</script>"
               			       + "</body>"
               			       + "</html>"
                     		)
@@ -180,14 +174,22 @@ public class AOResource {
     private AO getAOByName(String aoName) {
         for (AO ao : aoList) {
             if (ao.getName().equals(aoName)) {
-                return ao;  // Found the AO with the specified name
+                return ao;
             }
         }
-        return null;  // AO with the specified name not found
+        return null;
+    }
+    
+    private boolean getAOByName2(String aoName) {
+        for (AO ao : aoList) {
+            if (ao.getName().equals(aoName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void updateAO(AO updatedAO) {
-        // Implement logic to update AO in your data source (e.g., list)
         for (int i = 0; i < aoList.size(); i++) {
             if (aoList.get(i).getName().equals(updatedAO.getName())) {
                 aoList.set(i, updatedAO);
@@ -197,7 +199,6 @@ public class AOResource {
     }
 
     private boolean isValidDeadlineExtension(String oldDeadline, String newDeadline) {
-        // Implement logic to check if the new deadline is after the old deadline
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate oldDate = LocalDate.parse(oldDeadline, formatter);
         LocalDate newDate = LocalDate.parse(newDeadline, formatter);

@@ -11,10 +11,9 @@ import com.projet_jee.appel_d_offres.model.Administrator;
 
 @Path("/administrator")
 public class AdministratorResource {
-    private Administrator administrator;  // Assuming Administrator class is in the same package
+    private Administrator administrator;
 
     public AdministratorResource() {
-        // Initialize the administrator with default credentials
         administrator = new Administrator();
     }
 
@@ -27,13 +26,10 @@ public class AdministratorResource {
             @FormParam("password") String password,
             @Context HttpServletResponse servletResponse
     ) throws IOException {
-        // Check if the administrator login is successful
         if (isValidAdministrator(username, password)) {
-            // Redirect to AdminServlet after successful login
             servletResponse.sendRedirect("/appel-d-offres/AdminServlet");
             return "";
         } else {
-            // Return HTML response for incorrect login
         	return "<html lang='en'>"
 			       + "<head>"
 			       + "<meta charset='UTF-8'>"
@@ -67,7 +63,7 @@ public class AdministratorResource {
 			       + "<h2>Erreur de connection</h2>"
 			       + "<p>Nom ou mot de passe incorrect!</p>"
 			       + "</div>"
-			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/AuthenticationServlet'; }, 1000);</script>"
+			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/AuthenticationServlet'; }, 1500);</script>"
 			       + "</body>"
 			       + "</html>";
         }
@@ -81,9 +77,7 @@ public class AdministratorResource {
             @FormParam("oldPassword") String oldPassword,
             @FormParam("newPassword") String newPassword
     ) {
-        // Check if the old password is correct
         if (administrator.getPassword().equals(oldPassword)) {
-            // Update the administrator's password
             administrator.setPassword(newPassword);
 
             return "<html lang='en'>"
@@ -119,7 +113,7 @@ public class AdministratorResource {
 			       + "<h2>Succès</h2>"
 			       + "<p>Mot de passe modifié avec succès!</p>"
 			       + "</div>"
-			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/AuthenticationServlet'; }, 1000);</script>"
+			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/AuthenticationServlet'; }, 1500);</script>"
 			       + "</body>"
 			       + "</html>";
         } else {
@@ -156,14 +150,13 @@ public class AdministratorResource {
  			       + "<h2>Erreur</h2>"
  			       + "<p>Ancien mot de passe incorrect.</p>"
  			       + "</div>"
- 			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/PasswordModificationServlet'; }, 1000);</script>"
+ 			       + "<script>setTimeout(function(){ window.location.href='/appel-d-offres/PasswordModificationServlet'; }, 1500);</script>"
  			       + "</body>"
  			       + "</html>";
         }
     }
 
     private boolean isValidAdministrator(String username, String password) {
-        // Check if the administrator credentials are correct
         return administrator.getUsername().equals(username) && administrator.getPassword().equals(password);
     }
 }
